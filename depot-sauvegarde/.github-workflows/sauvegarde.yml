@@ -1,0 +1,33 @@
+name: Sauvegarde hebdomadaire du contenu
+
+on:
+  schedule:
+    - cron: '17 4 * * 1' # tous les lundis, 4 h 17 UTC
+  workflow_dispatch: # et à la demande, depuis l'onglet Actions
+
+jobs:
+  sauvegarder:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Exporter le contenu Sanity
+        run: node scripts/backup.mjs
+
+      - name: Enregistrer s'il y a du changement
+        run: |
+          git config user.name "Sauvegarde automatique"
+          git config user.email "actions@github.com"
+          git add sauvegarde
+          if git diff --cached --quiet; then
+            echo "Aucun changement depuis la semaine dernière."
+          else
+            git commit -m "Sauvegarde du $(date +%d/%m/%Y)"
+            git push
+          fi
