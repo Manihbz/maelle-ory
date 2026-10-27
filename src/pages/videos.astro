@@ -1,0 +1,64 @@
+---
+import Base from '../layouts/Base.astro';
+import VideoEmbed from '../components/VideoEmbed.astro';
+import { getContent } from '../lib/content.js';
+
+const c = getContent();
+---
+
+<Base current="Vidéos" title="Vidéos" description={`Bande démo et films de ${c.site.name}.`}>
+  <article class="section wrap">
+    <h1 class="title">Vidéos</h1>
+
+    {
+      c.videos.map((v) => (
+        <section class="item">
+          <div class="item__head">
+            <h2 class="eyebrow">{v.kind}</h2>
+            {v.meta && <p class="item__meta">{v.meta}</p>}
+          </div>
+          <VideoEmbed url={v.url} title={`${v.title} — ${c.site.name}`} />
+          {v.synopsis && <p class="item__synopsis">{v.synopsis}</p>}
+        </section>
+      ))
+    }
+  </article>
+</Base>
+
+<style>
+  .title {
+    font-size: clamp(34px, 6vw, 56px);
+    line-height: 1.05;
+    text-transform: uppercase;
+    margin-bottom: clamp(28px, 4vw, 44px);
+  }
+
+  .item {
+    margin-top: clamp(40px, 6vw, 72px);
+  }
+
+  .item__head {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 24px;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-bottom: 12px;
+    margin-bottom: 22px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .item__meta {
+    margin: 0;
+    font-size: 14px;
+    color: var(--ink-quiet);
+  }
+
+  .item__synopsis {
+    margin: 22px 0 0;
+    max-width: var(--measure);
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+  }
+</style>

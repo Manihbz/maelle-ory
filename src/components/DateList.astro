@@ -1,0 +1,108 @@
+---
+import { formatRange } from '../lib/dates.js';
+
+const { dates, limit, muted } = Astro.props;
+const shown = limit ? dates.slice(0, limit) : dates;
+
+// Le lien d'une représentation — billetterie, page du théâtre, événement —
+// n'a de sens que tant qu'elle est à venir. Sur les dates passées il mènerait
+// à une billetterie fermée, donc on ne l'affiche pas.
+const showLinks = !muted;
+---
+
+<ul class={`dates${muted ? ' dates--muted' : ''}`}>
+  {
+    shown.map((d) => (
+      <li class="dates__row">
+        <span class="dates__when">{formatRange(d.start, d.end)}</span>
+        <span class="dates__what">
+          {d.title}
+          {d.note && <span class="dates__note">{d.note}</span>}
+        </span>
+        <span class="dates__where">
+          {[d.venue, d.city].filter(Boolean).join(' · ')}
+          {showLinks && d.link && (
+            <a class="dates__link" href={d.link} rel="noopener">
+              {d.linkLabel || 'Réserver'}
+            </a>
+          )}
+        </span>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .dates {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--rule);
+  }
+
+  .dates__row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 24px;
+    padding-block: 22px;
+    border-bottom: 1px solid var(--rule-faint);
+    align-items: baseline;
+  }
+
+  .dates__when {
+    flex: 0 0 170px;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-quiet);
+  }
+
+  .dates__what {
+    flex: 1 1 240px;
+    min-width: 0;
+    font-size: 21px;
+    font-weight: 500;
+  }
+
+  .dates__note {
+    display: block;
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--ink-quiet);
+    margin-top: 4px;
+  }
+
+  .dates__where {
+    flex: 0 0 240px;
+    font-size: 15px;
+    color: var(--ink-quiet);
+  }
+
+  .dates__link {
+    display: block;
+    margin-top: 8px;
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 3px;
+    width: fit-content;
+  }
+
+  .dates--muted .dates__what {
+    font-size: 17px;
+    color: var(--ink-soft);
+  }
+
+  @media (min-width: 760px) {
+    .dates__where {
+      text-align: right;
+    }
+
+    .dates__link {
+      margin-left: auto;
+    }
+  }
+</style>

@@ -1,0 +1,93 @@
+---
+import '../styles/tokens.css';
+import Nav from '../components/Nav.astro';
+import { getContent } from '../lib/content.js';
+import { creditList } from '../lib/images.js';
+
+const c = getContent();
+const { title, description, current, image } = Astro.props;
+
+const pageTitle = title ? `${title} — ${c.site.name}` : `${c.site.name} — comédienne`;
+const pageDescription = description ?? c.site.description;
+const shareImage = image ?? c.site.shareImage;
+const year = new Date().getFullYear();
+const origin = Astro.site?.origin ?? '';
+const credits = creditList(
+  [{ credit: c.home.heroCredit }, ...c.photos],
+  c.site.defaultPhotoCredit,
+);
+
+// Données structurées : c'est ce qui relie son nom, ses compagnies et ses
+// œuvres dans les résultats de recherche.
+const person = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: c.site.name,
+  jobTitle: 'Comédienne',
+  url: `${origin}/`,
+  image: `${origin}/${c.site.shareImage}`,
+  description: c.site.description,
+  sameAs: c.contact.socials.map((s) => s.url),
+};
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:image" content={shareImage} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site ?? 'https://maelleory.fr')} />
+    <script type="application/ld+json" set:html={JSON.stringify(person)} />
+    <slot name="structured-data" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&display=swap"
+    />
+  </head>
+  <body>
+    <a class="skip" href="#contenu">Aller au contenu</a>
+    <Nav current={current} />
+    <main id="contenu">
+      <slot />
+    </main>
+    <footer class="wrap">
+      <hr class="rule" />
+      <div class="foot">
+        <span>{c.site.name}</span>
+        <span class="quiet">
+          {credits.length > 1 ? 'Photographies' : 'Photographies'} : {credits.join(', ')}
+        </span>
+        <span class="quiet">© {year}</span>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style>
+  main {
+    display: block;
+  }
+
+  footer {
+    padding-block: 48px 64px;
+  }
+
+  .foot {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 32px;
+    justify-content: space-between;
+    padding-top: 20px;
+    font-size: 13px;
+  }
+</style>

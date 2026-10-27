@@ -1,0 +1,198 @@
+{
+  "site": {
+    "name": "Maëlle Ory",
+    "tagline": "Comédienne — théâtre, cinéma, transmission",
+    "description": "Maëlle Ory, comédienne. Compagnie Bouscule et collectif Sans Attendre. Théâtre, cinéma, ateliers.",
+    "shareImage": "photos/hero.jpg",
+    "defaultPhotoCredit": "Adrien Brullion"
+  },
+  "home": {
+    "heroImage": "photos/hero.jpg",
+    "heroCredit": "Adrien Brullion",
+    "line": "Formée à Besançon puis à Lyon, elle cofonde la compagnie Bouscule et rejoint le collectif Sans Attendre. Elle transmet autant qu'elle joue.",
+    "heroLqip": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAQABwDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDjhyav2tsZ5AgqgDg1oWVyYZVcc0rN7FJpbhqFn9nwKzjwa1dQuTctuxgCstjyafK46MTaex//2Q=="
+  },
+  "bio": [
+    "Maëlle Ory débute sa formation théâtrale avec un DEUST à Besançon, où elle découvre diverses formes de théâtre.",
+    "Elle poursuit ensuite son apprentissage à Lyon, à l'école de La Scène sur Saône, avant de cofonder la compagnie Bouscule et de rejoindre le collectif Sans Attendre. Avec ces deux structures, elle initie plusieurs projets théâtraux. Maëlle Ory anime des ateliers de théâtre pour des personnes en situation de handicap.",
+    "Pour enrichir ses compétences, elle participe à de nombreux workshops axés sur la transmission, l'éducation artistique et culturelle, et le cinéma.",
+    "Depuis sept ans, elle s'investit dans l'organisation du Festival de Grange, un événement culturel dans sa ville natale, avec un engagement pour le théâtre et la culture locale."
+  ],
+  "cv": [
+    {
+      "category": "Théâtre",
+      "title": "Novecento",
+      "company": "Compagnie Bouscule",
+      "with": "Loris Mercatelli",
+      "role": null,
+      "director": null,
+      "year": null
+    },
+    {
+      "category": "Théâtre",
+      "title": "Macchabée sur Macadam",
+      "company": "Compagnie Bouscule",
+      "with": null,
+      "role": null,
+      "director": null,
+      "year": null
+    },
+    {
+      "category": "Théâtre",
+      "title": "Vaille que vaille",
+      "company": "Collectif Sans Attendre",
+      "with": null,
+      "role": null,
+      "director": null,
+      "year": null
+    },
+    {
+      "category": "Cinéma",
+      "title": "Diogène",
+      "company": "Court métrage, 13 min 16 s",
+      "with": null,
+      "role": null,
+      "director": "Marc Vital Guerin",
+      "year": 2025
+    },
+    {
+      "category": "Formation",
+      "title": "DEUST théâtre",
+      "company": "Besançon",
+      "with": null,
+      "role": null,
+      "director": null,
+      "year": null
+    },
+    {
+      "category": "Formation",
+      "title": "La Scène sur Saône",
+      "company": "Lyon",
+      "with": null,
+      "role": null,
+      "director": null,
+      "year": null
+    },
+    {
+      "category": "Formation",
+      "title": "Workshops",
+      "company": "Transmission, éducation artistique et culturelle, cinéma",
+      "with": null,
+      "role": null,
+      "director": null,
+      "year": null
+    }
+  ],
+  "videos": [
+    {
+      "title": "Bande démo",
+      "kind": "Bande démo",
+      "url": "https://www.youtube.com/watch?v=MterTIZk-os",
+      "featured": true,
+      "meta": null,
+      "synopsis": null
+    },
+    {
+      "title": "Diogène",
+      "kind": "Court métrage",
+      "url": "https://vimeo.com/1196702669/ba8edb9695",
+      "featured": false,
+      "meta": "Un film de Marc Vital Guerin · 2025 · 13 min 16 s",
+      "synopsis": "Dans un restaurant apparemment ordinaire, une serveuse désœuvrée voit sa routine bouleversée par l'arrivée d'un client excentrique nommé Diogène de Marseille, dont le comportement imprévisible lui rend la vie impossible. Cette rencontre déclenche une succession de moments absurdes et surréalistes qui viennent fissurer le quotidien mécanique de la jeune femme."
+    }
+  ],
+  "photos": [
+    {
+      "src": "photos/portrait-bleu.jpg",
+      "alt": "Portrait de Maëlle Ory, col roulé bleu, sur fond noir",
+      "credit": "Adrien Brullion",
+      "category": "Portrait",
+      "caption": null,
+      "width": 1200,
+      "height": 1800
+    },
+    {
+      "src": "photos/portrait-terracotta.jpg",
+      "alt": "Portrait de Maëlle Ory, haut terracotta, sur fond noir",
+      "credit": "Adrien Brullion",
+      "category": "Portrait",
+      "caption": null,
+      "width": 1200,
+      "height": 1800
+    },
+    {
+      "src": "photos/novecento-scene.jpg",
+      "alt": "Maëlle Ory en jeu dans Novecento, en extérieur",
+      "credit": "Adrien Brullion",
+      "category": "Scène",
+      "caption": "Novecento",
+      "width": 1200,
+      "height": 1800
+    },
+    {
+      "src": "photos/novecento-duo.jpg",
+      "alt": "Maëlle Ory et Loris Mercatelli dans Novecento",
+      "credit": "Adrien Brullion",
+      "category": "Scène",
+      "caption": "Novecento, avec Loris Mercatelli",
+      "width": 1220,
+      "height": 855
+    },
+    {
+      "src": "photos/vaille-masque.jpg",
+      "alt": "Maëlle Ory masquée, au milieu du public, dans Vaille que vaille",
+      "credit": "Adrien Brullion",
+      "category": "Scène",
+      "caption": "Vaille que vaille",
+      "width": 1600,
+      "height": 900
+    },
+    {
+      "src": "photos/vaille-salle.jpg",
+      "alt": "Maëlle Ory en jeu dans la salle, dans Vaille que vaille",
+      "credit": "Adrien Brullion",
+      "category": "Scène",
+      "caption": "Vaille que vaille",
+      "width": 1600,
+      "height": 900
+    }
+  ],
+  "dates": [
+    {
+      "title": "Vaille que vaille",
+      "start": "2026-12-04",
+      "end": "2026-12-04",
+      "venue": "Théâtre des Copiaus",
+      "city": "Chagny",
+      "note": "Collectif Sans Attendre",
+      "link": null,
+      "linkLabel": null
+    }
+  ],
+  "ateliers": [
+    {
+      "name": "Ateliers de théâtre",
+      "audience": "Personnes en situation de handicap",
+      "partner": "Association Personimages",
+      "rhythm": null,
+      "place": null,
+      "period": null,
+      "description": "Maëlle Ory anime des ateliers de théâtre pour des personnes en situation de handicap, avec l'association Personimages.",
+      "howTo": "Pour les modalités et les inscriptions, la joindre directement."
+    }
+  ],
+  "press": [],
+  "contact": {
+    "emailUser": "maelle.ory21",
+    "emailDomain": "yahoo.fr",
+    "phone": "06 24 79 39 82",
+    "agent": null,
+    "socials": [
+      {
+        "name": "Instagram",
+        "url": "https://www.instagram.com/orymaelle/",
+        "handle": "@orymaelle"
+      }
+    ]
+  }
+}

@@ -1,0 +1,75 @@
+---
+const { category, lines } = Astro.props;
+
+// Pas de tri ici : l'ordre est décidé une seule fois, dans la couche de
+// données. Deux endroits qui trient, c'est deux endroits qui peuvent
+// diverger — et la version précédente comparait (-Infinity) - (-Infinity),
+// soit NaN, ce qui rend le résultat du tri imprévisible.
+const sorted = lines;
+---
+
+<section class="cv">
+  <h2 class="eyebrow">{category}</h2>
+  <ul>
+    {
+      sorted.map((l) => (
+        <li>
+          <span class="cv__year">{l.year ?? ''}</span>
+          <span class="cv__title">{l.title}</span>
+          <span class="cv__meta">
+            {[l.role, l.director, l.company, l.with && `avec ${l.with}`]
+              .filter(Boolean)
+              .join(' · ')}
+          </span>
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<style>
+  .cv {
+    margin-top: clamp(36px, 5vw, 56px);
+  }
+
+  h2 {
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 24px;
+    padding-block: 18px;
+    border-bottom: 1px solid var(--rule-faint);
+    align-items: baseline;
+  }
+
+  .cv__year {
+    flex: 0 0 70px;
+    font-size: 14px;
+    color: var(--ink-quiet);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .cv__title {
+    flex: 1 1 220px;
+    min-width: 0;
+    font-size: 19px;
+    font-weight: 500;
+  }
+
+  .cv__meta {
+    flex: 1 1 260px;
+    min-width: 0;
+    font-size: 15px;
+    color: var(--ink-quiet);
+  }
+</style>

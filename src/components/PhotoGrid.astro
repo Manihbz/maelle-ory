@@ -1,0 +1,44 @@
+---
+import Figure from './Figure.astro';
+
+const { photos } = Astro.props;
+
+// Portraits et paysages ne se mélangent pas dans une même rangée : chacun sa
+// bande, pour que la galerie ne devienne pas un damier.
+const portraits = photos.filter((p) => p.height > p.width);
+const landscapes = photos.filter((p) => p.height <= p.width);
+---
+
+<div class="grid">
+  {portraits.length > 0 && (
+    <div class="grid__band grid__band--portrait">
+      {portraits.map((p, i) => <Figure {...p} priority={i === 0} />)}
+    </div>
+  )}
+  {landscapes.length > 0 && (
+    <div class="grid__band grid__band--landscape">
+      {landscapes.map((p) => <Figure {...p} />)}
+    </div>
+  )}
+</div>
+
+<style>
+  .grid {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(40px, 6vw, 72px);
+  }
+
+  .grid__band {
+    display: grid;
+    gap: clamp(24px, 4vw, 48px);
+  }
+
+  .grid__band--portrait {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
+
+  .grid__band--landscape {
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  }
+</style>

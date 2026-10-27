@@ -1,0 +1,75 @@
+---
+import Base from '../layouts/Base.astro';
+import DateList from '../components/DateList.astro';
+import { getContent } from '../lib/content.js';
+import { splitDates } from '../lib/dates.js';
+
+const c = getContent();
+const { upcoming, past } = splitDates(c.dates);
+
+const events = upcoming.map((d) => ({
+  '@context': 'https://schema.org',
+  '@type': 'TheaterEvent',
+  name: d.title,
+  startDate: d.start,
+  endDate: d.end ?? d.start,
+  eventStatus: 'https://schema.org/EventScheduled',
+  eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+  performer: { '@type': 'Person', name: c.site.name },
+  ...(d.link && { url: d.link }),
+  ...(d.venue && {
+    location: {
+      '@type': 'Place',
+      name: d.venue,
+      address: { '@type': 'PostalAddress', addressLocality: d.city, addressCountry: 'FR' },
+    },
+  }),
+}));
+---
+
+<Base current="Agenda" title="Agenda" description={`Les dates à venir de ${c.site.name}.`}>
+  <script slot="structured-data" type="application/ld+json" set:html={JSON.stringify(events)} />
+  <article class="section wrap">
+    <h1 class="title">Agenda</h1>
+
+    {
+      upcoming.length > 0 ? (
+        <>
+          <h2 class="eyebrow">À venir</h2>
+          <DateList dates={upcoming} />
+        </>
+      ) : (
+        <p class="lede">
+          Aucune date à venir pour le moment. Les représentations passées sont
+          consultables ci-dessous.
+        </p>
+      )
+    }
+
+    {
+      past.length > 0 && (
+        <section class="past">
+          <h2 class="eyebrow">Dates passées</h2>
+          <DateList dates={past} muted />
+        </section>
+      )
+    }
+  </article>
+</Base>
+
+<style>
+  .title {
+    font-size: clamp(34px, 6vw, 56px);
+    line-height: 1.05;
+    text-transform: uppercase;
+    margin-bottom: clamp(28px, 4vw, 44px);
+  }
+
+  .eyebrow {
+    padding-bottom: 12px;
+  }
+
+  .past {
+    margin-top: clamp(48px, 7vw, 80px);
+  }
+</style>

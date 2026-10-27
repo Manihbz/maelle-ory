@@ -1,0 +1,82 @@
+---
+import Base from '../layouts/Base.astro';
+import { getContent } from '../lib/content.js';
+
+const c = getContent();
+---
+
+<Base current="Ateliers" title="Ateliers" description={`Les ateliers de théâtre animés par ${c.site.name}.`}>
+  <article class="section wrap">
+    <h1 class="title">Ateliers</h1>
+
+    {
+      c.ateliers.map((a) => (
+        <section class="atelier">
+          <h2 class="atelier__name">{a.name}</h2>
+          <dl class="facts">
+            {a.audience && (<><dt>Public</dt><dd>{a.audience}</dd></>)}
+            {a.partner && (<><dt>Avec</dt><dd>{a.partner}</dd></>)}
+            {a.place && (<><dt>Lieu</dt><dd>{a.place}</dd></>)}
+            {a.rhythm && (<><dt>Rythme</dt><dd>{a.rhythm}</dd></>)}
+            {a.period && (<><dt>Période</dt><dd>{a.period}</dd></>)}
+          </dl>
+          {a.description && <p class="atelier__text">{a.description}</p>}
+          {a.howTo && <p class="atelier__how">{a.howTo} <a href="contact.html">Contact</a></p>}
+        </section>
+      ))
+    }
+  </article>
+</Base>
+
+<style>
+  .title {
+    font-size: clamp(34px, 6vw, 56px);
+    line-height: 1.05;
+    text-transform: uppercase;
+    margin-bottom: clamp(28px, 4vw, 44px);
+  }
+
+  .atelier {
+    margin-top: clamp(32px, 5vw, 56px);
+    padding-top: clamp(24px, 3vw, 32px);
+    border-top: 1px solid var(--rule);
+    max-width: var(--measure);
+  }
+
+  .atelier__name {
+    font-size: clamp(24px, 3vw, 32px);
+    margin-bottom: 20px;
+  }
+
+  .facts {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 8px 20px;
+    margin: 0 0 24px;
+    font-size: 16px;
+  }
+
+  dt {
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-quiet);
+    padding-top: 3px;
+  }
+
+  dd {
+    margin: 0;
+  }
+
+  .atelier__text {
+    margin: 0 0 1em;
+    line-height: 1.7;
+    color: var(--ink-soft);
+  }
+
+  .atelier__how {
+    margin: 0;
+    font-size: 15px;
+    color: var(--ink-quiet);
+  }
+</style>

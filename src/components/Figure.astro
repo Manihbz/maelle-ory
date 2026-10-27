@@ -1,0 +1,58 @@
+---
+import { resolveCredit, naturalCap } from '../lib/images.js';
+import { getContent } from '../lib/content.js';
+
+const { src, alt, credit, caption, width, height, priority } = Astro.props;
+
+// Crédit propre à la photo, sinon celui réglé une fois pour le site.
+// Si les deux manquent, la construction s'arrête.
+const photographer = resolveCredit(src, credit, getContent().site.defaultPhotoCredit);
+---
+
+<figure class="fig" style={`--cap: ${naturalCap(width)}`}>
+  <img
+    src={src}
+    alt={alt}
+    width={width}
+    height={height}
+    loading={priority ? 'eager' : 'lazy'}
+    fetchpriority={priority ? 'high' : 'auto'}
+    decoding="async"
+  />
+  <figcaption>
+    {caption && <span class="fig__caption">{caption}</span>}
+    <span class="credit">© {photographer}</span>
+  </figcaption>
+</figure>
+
+<style>
+  .fig {
+    margin: 0;
+  }
+
+  /* --cap est la définition native de l'image : au-delà, on ne l'étire pas,
+     on la laisse centrée dans l'espace disponible. */
+  img {
+    width: 100%;
+    max-width: var(--cap);
+    height: auto;
+    margin-inline: auto;
+    background: var(--ground-deep);
+  }
+
+  figcaption {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 16px;
+    justify-content: space-between;
+    align-items: baseline;
+    max-width: var(--cap);
+    margin-inline: auto;
+  }
+
+  .fig__caption {
+    margin-top: 8px;
+    font-size: 14px;
+    color: var(--ink-soft);
+  }
+</style>

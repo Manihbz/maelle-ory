@@ -1,0 +1,74 @@
+---
+import { resolveCredit } from '../lib/images.js';
+import { getContent } from '../lib/content.js';
+
+const { image, alt, credit, name, lqip } = Astro.props;
+const photographer = resolveCredit(image, credit, getContent().site.defaultPhotoCredit);
+
+const [first, ...rest] = name.split(' ');
+---
+
+<section class="hero" style={lqip ? `background-image: url(${lqip})` : undefined}>
+  <img class="hero__img" src={image} alt={alt} fetchpriority="high" decoding="async" />
+  <div class="hero__scrim"></div>
+  <div class="hero__inner wrap">
+    <h1>{first}<br />{rest.join(' ')}</h1>
+  </div>
+  <p class="hero__credit">© {photographer}</p>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    background-size: cover;
+    background-position: 50% 50%;
+    height: var(--band);
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .hero__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 50%;
+  }
+
+  .hero__scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(10, 10, 9, 0.72) 0%,
+      rgba(10, 10, 9, 0.18) 34%,
+      rgba(10, 10, 9, 0) 58%
+    );
+  }
+
+  .hero__inner {
+    position: relative;
+    width: 100%;
+    padding-bottom: clamp(28px, 5vw, 56px);
+  }
+
+  h1 {
+    margin: 0;
+    font-size: clamp(44px, 9vw, 96px);
+    line-height: 0.96;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  .hero__credit {
+    position: absolute;
+    right: var(--gutter);
+    bottom: 14px;
+    margin: 0;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: var(--ink-quiet);
+  }
+</style>

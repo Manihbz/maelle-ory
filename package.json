@@ -1,0 +1,21 @@
+{
+  "name": "maelle-ory",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node --test test/lib.test.js",
+    "build": "astro build && node scripts/relativize.mjs",
+    "dev": "astro dev",
+    "export:sanity": "node scripts/export-to-sanity.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@sanity/client": "^8.11.0",
+    "@sanity/image-url": "^2.1.1",
+    "astro": "^5.18.2"
+  },
+  "type": "module"
+}

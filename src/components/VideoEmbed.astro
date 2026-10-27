@@ -1,0 +1,112 @@
+---
+import { parseVideoUrl } from '../lib/video.js';
+
+const { url, title, poster } = Astro.props;
+const video = parseVideoUrl(url);
+
+// L'environnement d'aperçu interdit les lecteurs tiers : on affiche alors
+// un bloc de même proportion, avec un lien réel vers la vidéo.
+const preview = import.meta.env.PUBLIC_PREVIEW === '1';
+---
+
+{
+  !video ? (
+    <p class="video__missing">Cette vidéo n’est pas disponible pour le moment.</p>
+  ) : preview ? (
+    <figure class="video">
+      <a class="video__frame video__stand" href={url} rel="noopener">
+        <span class="video__play" aria-hidden="true" />
+        <span class="video__label">{title}</span>
+        <span class="video__hint">
+          Lecteur désactivé dans l’aperçu — cliquer pour ouvrir la vidéo
+        </span>
+      </a>
+      {poster && <figcaption class="credit">{poster}</figcaption>}
+    </figure>
+  ) : (
+    <figure class="video">
+      <div class="video__frame">
+        <iframe
+          src={video.embedUrl}
+          title={title}
+          loading="lazy"
+          allow="fullscreen; picture-in-picture"
+          allowfullscreen
+          referrerpolicy="strict-origin-when-cross-origin"
+        />
+      </div>
+      {poster && <figcaption class="credit">{poster}</figcaption>}
+    </figure>
+  )
+}
+
+<style>
+  .video {
+    margin: 0;
+  }
+
+  .video__frame {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    background: var(--ground-deep);
+    border: 1px solid var(--rule);
+  }
+
+  iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .video__stand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    text-decoration: none;
+    padding: 24px;
+    text-align: center;
+  }
+
+  .video__play {
+    width: 72px;
+    height: 72px;
+    border: 1px solid var(--ink);
+    border-radius: 50%;
+    position: relative;
+  }
+
+  .video__play::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-42%, -50%);
+    border-left: 18px solid var(--ink);
+    border-top: 11px solid transparent;
+    border-bottom: 11px solid transparent;
+  }
+
+  .video__label {
+    font-size: 15px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .video__hint {
+    font-size: 12px;
+    color: var(--ink-quiet);
+    max-width: 34ch;
+  }
+
+  .video__missing {
+    margin: 0;
+    padding: 28px;
+    border: 1px solid var(--rule);
+    color: var(--ink-quiet);
+    font-size: 15px;
+  }
+</style>

@@ -1,0 +1,84 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import VideoEmbed from '../components/VideoEmbed.astro';
+import DateList from '../components/DateList.astro';
+import { getContent } from '../lib/content.js';
+import { splitDates } from '../lib/dates.js';
+
+const c = getContent();
+const reel = c.videos.find((v) => v.featured) ?? c.videos[0];
+const { upcoming } = splitDates(c.dates);
+---
+
+<Base current="Accueil">
+  <Hero
+    image={c.home.heroImage}
+    alt={`Portrait de ${c.site.name}`}
+    credit={c.home.heroCredit}
+    lqip={c.home.heroLqip}
+    name={c.site.name}
+  />
+
+  <section class="section wrap">
+    <p class="lede">{c.home.line}</p>
+    <p class="more"><a href="parcours.html">Voir le parcours</a></p>
+  </section>
+
+  {
+    reel && (
+      <section class="section wrap">
+        <div class="head">
+          <h2 class="eyebrow">{reel.kind}</h2>
+          <a class="head__link" href="videos.html">Toutes les vidéos</a>
+        </div>
+        <VideoEmbed url={reel.url} title={`${reel.kind} de ${c.site.name}`} />
+      </section>
+    )
+  }
+
+  {
+    upcoming.length > 0 && (
+      <section class="section wrap">
+        <div class="head">
+          <h2 class="eyebrow">Prochaines dates</h2>
+          <a class="head__link" href="agenda.html">Tout l’agenda</a>
+        </div>
+        <DateList dates={upcoming} limit={2} />
+      </section>
+    )
+  }
+</Base>
+
+<style>
+  .more {
+    margin: 36px 0 0;
+    font-size: 13px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .more a {
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 4px;
+  }
+
+  .head {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 24px;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-bottom: 14px;
+    margin-bottom: 22px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .head__link {
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+</style>

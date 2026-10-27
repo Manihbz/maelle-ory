@@ -1,0 +1,53 @@
+---
+import Base from '../layouts/Base.astro';
+import CvSection from '../components/CvSection.astro';
+import { getContent } from '../lib/content.js';
+
+const c = getContent();
+
+// Ordre imposé par la spec. Une catégorie sans ligne n'apparaît pas.
+const ORDER = ['Théâtre', 'Cinéma', 'Télévision', 'Doublage et voix', 'Publicité', 'Formation'];
+const sections = ORDER.map((category) => ({
+  category,
+  lines: c.cv.filter((l) => l.category === category),
+})).filter((s) => s.lines.length > 0);
+---
+
+<Base current="Parcours" title="Parcours" description={`Biographie et parcours de ${c.site.name}.`}>
+  <article class="section wrap">
+    <h1 class="title">Parcours</h1>
+
+    <div class="bio">
+      {c.bio.map((p) => <p>{p}</p>)}
+    </div>
+
+    {sections.map((s) => <CvSection category={s.category} lines={s.lines} />)}
+  </article>
+</Base>
+
+<style>
+  .title {
+    font-size: clamp(34px, 6vw, 56px);
+    line-height: 1.05;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    margin-bottom: clamp(28px, 4vw, 44px);
+  }
+
+  .bio {
+    max-width: var(--measure);
+  }
+
+  .bio p {
+    margin: 0 0 1.1em;
+    font-size: clamp(17px, 1.6vw, 19px);
+    line-height: 1.7;
+    color: var(--ink-soft);
+  }
+
+  .bio p:first-child {
+    font-size: clamp(19px, 2.2vw, 23px);
+    line-height: 1.55;
+    color: var(--ink);
+  }
+</style>

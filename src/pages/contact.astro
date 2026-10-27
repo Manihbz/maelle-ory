@@ -1,0 +1,81 @@
+---
+import Base from '../layouts/Base.astro';
+import { getContent } from '../lib/content.js';
+
+const c = getContent();
+const { emailUser, emailDomain, phone, agent, socials } = c.contact;
+// L'adresse n'est jamais écrite en entier dans le HTML : elle est reconstituée
+// à l'affichage. Sans JavaScript, la forme lisible reste utilisable.
+const phoneHref = `tel:+33${phone.replace(/\s/g, '').slice(1)}`;
+---
+
+<Base current="Contact" title="Contact" description={`Contacter ${c.site.name}.`}>
+  <article class="section wrap">
+    <h1 class="title">Contact</h1>
+
+    <dl class="coords">
+      <dt>E-mail</dt>
+      <dd>
+        <span class="mail" data-u={emailUser} data-d={emailDomain}>
+          {emailUser} [arobase] {emailDomain}
+        </span>
+      </dd>
+
+      <dt>Téléphone</dt>
+      <dd><a href={phoneHref}>{phone}</a></dd>
+
+      {agent && (<><dt>Agent</dt><dd>{agent}</dd></>)}
+
+      {socials.length > 0 && (
+        <>
+          <dt>En ligne</dt>
+          <dd>
+            {socials.map((s) => (
+              <a href={s.url} rel="me noopener">{s.name} {s.handle}</a>
+            ))}
+          </dd>
+        </>
+      )}
+    </dl>
+  </article>
+</Base>
+
+<script is:inline>
+  for (const el of document.querySelectorAll('.mail')) {
+    const address = `${el.dataset.u}@${el.dataset.d}`;
+    const link = document.createElement('a');
+    link.href = `mailto:${address}`;
+    link.textContent = address;
+    el.replaceWith(link);
+  }
+</script>
+
+<style>
+  .title {
+    font-size: clamp(34px, 6vw, 56px);
+    line-height: 1.05;
+    text-transform: uppercase;
+    margin-bottom: clamp(28px, 4vw, 44px);
+  }
+
+  .coords {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 16px 24px;
+    margin: 0;
+    font-size: clamp(17px, 2vw, 20px);
+    max-width: var(--measure);
+  }
+
+  dt {
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-quiet);
+    padding-top: 6px;
+  }
+
+  dd {
+    margin: 0;
+  }
+</style>
