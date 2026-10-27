@@ -8,3 +8,5 @@ studio/schema.json
 .env
 .DS_Store
 studio/.sanity/
+
+sauvegarde/
